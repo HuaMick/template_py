@@ -172,3 +172,14 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+# Nix
+.direnv/
+result
+result-*
+
+# Python virtual environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
