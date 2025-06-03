@@ -3,42 +3,45 @@ description:
 globs: 
 alwaysApply: true
 ---
-Below is the current folder structure of the project:
-
 ### Project Folder Structure
-
-Below is the current folder structure of the project:
 
 ```
 .
 ├── src/
-│   ├── functions/    # Cloud functions and business logic
 │   ├── config/       # Configuration files
-│   └── nodes/        # Node components
-│
-├── tests/            # Test files
+    ├── services/     # Services such API endpoints
+│   ├── functions/    # Cloud functions and business logic
+│   ├── nodes/        # Node components
+│   └── scripts/      # Shell scripts to execute nodes or setup infrastructure
+│   
+├── tests/
 │   ├── fixtures/     # Test fixtures and shared test data
-│   ├── scripts/      # Test helper scripts
-│   └── test_integration_*.py     # Integration test implementation files
-    └── test_integration_*.sh     # Integration test shell script for setting env and .venv
+│   └── test_suite/   # Main test suite
 │
-├── agent_memory/     # Project documentation and reference materials
-│   ├── lessons.md    # Lessons learned
-│   └── notes.md      # Project notes
+├── database/         # Database related files
+├── docker/           # Docker and docker compose files
+│
+├── docs/             # Documentation files
+│
+├── memory_bank/      # Project documentation and reference materials
+│   ├── lessons.md    # (Illustrative) Lessons learned
+│   └── notes.md      # (Illustrative) Project notes
 │
 ├── secrets/          # Credentials and secret files
 │
 ├── env/              # Environment variables
 │
 ├── .venv/            # Virtual environment
-│
-├── infastructure/    # Infrastructure configuration
-│
-├── legacy/           # Legacy code and resources
+
+
 │
 ├── requirements.txt  # Project dependencies
 │
 ├── pyproject.toml    # Project configuration
+│
+├── notebook.ipynb     # Jupyter notebook for experimentation
+├── pytest.ini         # Pytest configuration file
+├── README.md          # Project README
 │
 └── .gitignore        # Git ignore file
 ```
