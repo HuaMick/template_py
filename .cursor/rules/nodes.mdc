@@ -1,14 +1,10 @@
 ---
-description: creating and updating functions in the src/nodes folder
+description: 
 globs: 
 alwaysApply: false
 ---
-## Definition
-Nodes chain multiple functions together to create desired behaviour.
-
 ## Guidelines
 - Please follow the patterns in [example_node.py](mdc:src/nodes/example_node.py)
-- Nodes orchestrate multiple functions to accomplish complex workflows
 - Focus on clear process flow with status reporting at each step
 
 ## Node Design
@@ -29,9 +25,7 @@ Nodes chain multiple functions together to create desired behaviour.
 - **Documentation**: Include docstring explaining the overall workflow
 
 When creating a node:
-- [ ] `grep_search` for existing functions before creating new ones
 - [ ] `grep_search` for existing functions that could potentially be leveraged  
-- [ ] Review existing nodes for similar patterns or workflows
 - [ ] Create an integration test [integration_tests.mdc](mdc:.cursor/rules/integration_tests.mdc) for each node that is created
 - [ ] Create an integration test [scripts.mdc](mdc:.cursor/rules/scripts.mdc) shell script for the node's integration test
 - [ ] Create a node execution script [scripts.mdc](mdc:.cursor/rules/scripts.mdc) 

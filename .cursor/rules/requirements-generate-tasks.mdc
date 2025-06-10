@@ -7,71 +7,39 @@ alwaysApply: false
 
 ## Goal
 
-To guide an AI assistant in creating a detailed, step-by-step task list in Markdown format based on an existing Product Requirements Document (PRD). The task list should guide a developer through implementation.
+You are a technical writer tasked with creating a detailed step-by-step task list in a markdown file, based on an existing Product Requirements Document (PRD). The task list will guide junior developers and AI assistants in developing a product that delivers on all the goals required for the PRD. 
 
 ## Output
 
 - **Format:** Markdown (`.md`)
-- **Location:** `/tasks/`
-- **Filename:** `tasks-[prd-file-name].md` (e.g., `tasks-prd-user-profile-editing.md`)
+- **Location:** `/project_docs/tasks-list.md`
 
 ## Process
 
-1.  **Receive PRD Reference:** The user points the AI to a specific PRD file
-2.  **Analyze PRD:** The AI reads and analyzes the functional requirements, user stories, and other sections of the specified PRD. The primary goal is to break down requirements into a series of **functions** that need to be created or modified. Consider how these functions will chain together. The **Testing Honeycomb/Integration-First philosophy** remains key: prioritize integration tests for core data flows and function interactions.
-3.  **Phase 1: Generate Parent Tasks:** Based on the PRD analysis, create the file and generate main, high-level tasks. These parent tasks should represent significant milestones or distinct components of the feature, often culminating in a node or a key functional output. Ensure testing tasks reflect the integration-first approach. Present these tasks to the user in the specified format (without sub-tasks yet). Inform the user: "I have generated the high-level tasks based on the PRD, emphasizing a function-driven approach and integration testing. Ready to generate the detailed function and test sub-tasks? Respond with 'Go' to proceed."
-4.  **Wait for Confirmation:** Pause and wait for the user to respond with "Go".
-5.  **Phase 2: Generate Sub-Tasks:** Once the user confirms, break down each parent task into smaller, actionable sub-tasks. Many sub-tasks will involve:
-    *   **Creating or Updating Functions:**
-        *   Clearly state the function's purpose.
-        *   Define its expected **Inputs** (name, type, description).
-        *   Define its expected **Outputs** (structure, type, description, typically following `{"success": bool, "message": str, "result": dict}`).
-        *   Example: `- [ ] Create function `process_raw_data(data: pd.DataFrame, config: dict) -> dict` to clean and transform raw input. Inputs: raw pandas DataFrame, configuration dictionary. Outputs: dict with success status, message, and processed DataFrame.`
-    *   **Chaining Functions:** Describe how outputs of one function become inputs to another.
-    *   **Creating Nodes:** When a sequence of functions achieves a significant sub-goal, a task to create a node encapsulating this chain should be defined.
-    *   **Testing Sub-Tasks**:
-        *   For **every new function created**, a sub-task to create its corresponding **integration test** must be included immediately following the function creation sub-task. Reference `integration_tests.mdc`.
-        *   Unit tests should be generated for complex, isolated logic within a function or for refinement after integration tests pass. Reference `unit_tests.mdc`.
-6.  **Identify Relevant Files:** Based on the tasks (especially function and node creation), identify potential files that will need to be created or modified. List these under the `Relevant Files` section. For each function, list its source file (e.g., `src/functions/my_new_function.py`) and its integration test file (e.g., `tests/test_integration_my_new_function.py`).
-7.  **Generate Final Output:** Combine the parent tasks, sub-tasks, relevant files, and notes into the final Markdown structure.
-8.  **Save Task List:** Save the generated document in the `/tasks/` directory with the filename `tasks-[prd-file-name].md`, where `[prd-file-name]` matches the base name of the input PRD file (e.g., if the input was `prd-user-profile-editing.md`, the output is `tasks-prd-user-profile-editing.md`).
+1. `grep search` for a `prd.md` if not found ask the user to create one then stop.
 
-## Output Format
+2. `grep search` for a [example-task-list.md](mdc:project_docs/example-task-list.md) This should have detailed instructions for creating the `task-list.md`. If none exists, stop and ask the user to provide one.
 
-The generated task list _must_ follow this structure:
+3.  Analyze the `prd.md`. The goal is to break down the requirements into project milestones. Then to further break down the milestones into tasks, nodes, and   functions that junior developers and AI assistants can use to build a product that delivers on the goals of the `prd.md`.
 
-```markdown
-## Relevant Files
+4. Generate milestones. These are main high-level parent tasks that represent significant milestones required to deliver the goals of the `prd.md`
 
-- `path/to/potential/file1.ts` - Brief description of why this file is relevant (e.g., Contains the main component for this feature).
-- `path/to/file1.test.ts` - Unit tests for `file1.ts`.
-- `path/to/another/file.tsx` - Brief description (e.g., API route handler for data submission).
-- `path/to/another/file.test.tsx` - Unit tests for `another/file.tsx`.
-- `lib/utils/helpers.ts` - Brief description (e.g., Utility functions needed for calculations).
-- `lib/utils/helpers.test.ts` - Unit tests for `helpers.ts`.
+5. Generate tasks. These are any one off tasks outside of constructing nodes and functions. (Project setup, research, schema design ...) 
 
-### Notes
+6. Generate nodes.
 
-- Unit tests should typically be placed alongside the code files they are testing (e.g., `MyComponent.tsx` and `MyComponent.test.tsx` in the same directory), or in a corresponding `tests/unit` subdirectory if preferred for organization.
-- Integration tests for functions are typically in `tests/test_integration_<function_name>.py`.
-- Integration tests for nodes are typically in `tests/test_integration_<node_name>.py`.
-- Emphasize running integration tests using their `.sh` scripts to ensure proper environment setup.
-- Use `pytest` (or `python -m pytest`) to run tests. Test discovery should find tests matching `test_*.py` patterns.
+7. Generate functions.
 
-## Tasks
+8. Add `TBC` (to be confirmed) markers to flag any points of ambiguity that require clarification. `TBC` markers should pinpoint a specific uncertainty with an existing item, they should not be broad or open-ended questions.
 
-- [ ] 1.0 Parent Task Title
-  - [ ] 1.1 [Sub-task description 1.1]
-  - [ ] 1.2 [Sub-task description 1.2]
-- [ ] 2.0 Parent Task Title
-  - [ ] 2.1 [Sub-task description 2.1]
-- [ ] 3.0 Parent Task Title (may not require sub-tasks if purely structural or configuration)
-```
+Example of a TBC item. 
+*   This is the item the TBC relates to. 
+    > ⚠️ **TBC:** Please clarify ...
 
-## Interaction Model
+9. Review functions. Check if any functions share similar behaviour. If yes, can these functions be decomposed into smaller components which then can be leveraged by other functions.
 
-The process explicitly requires a pause after generating parent tasks to get user confirmation ("Go") before proceeding to generate the detailed sub-tasks. This ensures the high-level plan aligns with user expectations before diving into details.
+10. Review functions more. Check if any functions can forfill the role of other functions if they are extended with additional parameters. If yes, extend those functions and then remove redundant ones.
 
-## Target Audience
+11. For each node list the functions the node will leverage.
 
-Assume the primary reader of the task list is a **junior developer** who will implement the feature.
+12. Save the `tasks-list.md` to `/project_docs/tasks-list.md`
