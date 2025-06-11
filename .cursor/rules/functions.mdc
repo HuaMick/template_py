@@ -1,13 +1,10 @@
----
-description: 
-globs: 
-alwaysApply: false
----
 ## Function Design Patterns
 - standard return format: `{"success": bool, "message": str, "result": dict}`.
 - please follow exale_function.py
 - functions should be stored in ./src/functions.
 - unless dealing with external services functions should assume correct parameters will be passed to it.
+- Assume all params are passed in correctly. Dont handle exceptions until its determined to be nessary to meet project goals.
+
 - Early return pattern used for validation with clear error messages.
 - Exception handling with try-except only when dealing with external services.
 - One function per a file. The name of the function should match the file name.
