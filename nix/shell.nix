@@ -2,6 +2,11 @@
 
 let
   pythonEnv = pkgs.python3.withPackages (ps: with ps; [
+    # Jupyter
+    jupyter
+    jupyterlab
+    ipykernel
+    
     # Testing
     pytest
     pytest-cov
@@ -11,6 +16,8 @@ let
     black
     mypy
     ruff
+    python-dotenv
+    pymongo
   ]);
 in
 

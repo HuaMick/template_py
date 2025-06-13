@@ -1,0 +1,7 @@
+{
+    "python.defaultInterpreterPath": "/nix/store/fdbg0ir532g2xnjyaa1436kbgw8bf56c-python3-3.12.10-env/bin/python",
+    "notebook.defaultKernel": "nix-python",
+    "jupyter.kernels.excludePythonEnvironments": [
+        "/Users/mick/Library/Jupyter/kernels/nix-python"
+    ]
+}

@@ -1,0 +1,17 @@
+# Jupyter
+jupyter
+jupyterlab
+ipykernel
+
+# Testing
+pytest
+pytest-cov
+pytest-mock
+
+# Development tools
+black
+mypy
+ruff
+python-dotenv
+pymongo
+pandas
