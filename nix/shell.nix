@@ -17,6 +17,7 @@ let
     mypy
     ruff
     python-dotenv
+    pymongo
   ]);
 in
 
