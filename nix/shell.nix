@@ -16,6 +16,7 @@ let
     black
     mypy
     ruff
+    python-dotenv
   ]);
 in
 
