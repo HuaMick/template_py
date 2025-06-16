@@ -47,7 +47,8 @@ uv venv
 
 # 7. Install dependencies
 echo "Installing dependencies..."
-uv pip sync
+uv lock
+uv pip sync uv.lock
 
 # 8. Provide activation instructions
 echo "Setup complete!"
