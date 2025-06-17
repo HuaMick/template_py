@@ -35,9 +35,10 @@ fi
 echo "Creating virtual environment..."
 uv venv
 
-# 5. Install dependencies
+# 7. Install dependencies
 echo "Installing dependencies..."
-uv pip sync pyproject.toml
+uv lock
+uv pip sync uv.lock
 
 # 6. Provide activation instructions
 echo "Setup complete!"
